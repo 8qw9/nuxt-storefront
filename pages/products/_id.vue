@@ -106,6 +106,16 @@ export default {
             }
         }
     },
+    async fetch() {
+        try {
+            const { product } = await this.$axios.$get(`/store/products/${this.$route.params.id}`)
+            this.product = product
+            this.imageToShow = this.product.images[0].id
+        } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log('The server is not responding')
+        }
+    },
     computed: {
         lowestPrice() {
             const lowestPrice = this.product.variants.reduce((acc, curr) => {
